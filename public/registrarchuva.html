@@ -1,16 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="choveuaqui">
 <head lang="pt-BR">
     <meta charset="UTF-8">
     <title>Registrar Chuva | Choveu Aqui | Registros de Chuvas no Brasil</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <link href="css/navbar-fixed-top.css" rel="stylesheet">
+    <link href="css/estilo.css" rel="stylesheet">
+    <script language="JavaScript" type="text/javascript">
+        function mascaraGenerica(evt, campo, padrao) {
+            //testa a tecla pressionada pelo usuario
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode == 8) return true; //tecla backspace permitida
+            if (charCode != 46 && (charCode < 48 || charCode > 57)) return false; //apenas numeros
+            campo.maxLength = padrao.length; //Define dinamicamente o tamanho maximo do campo de acordo com o padrao fornecido
+            //aplica a mascara de acordo com o padrao fornecido
+            entrada = campo.value;
+            if (padrao.length > entrada.length && padrao.charAt(entrada.length) != '#') {
+                campo.value = entrada + padrao.charAt(entrada.length);
+            }
+            return true;
+        }
+    </script>
 
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.custom.min.js"></script>
+    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 </head>
-<body>
+<body ng-controller="eventos">
 <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #2e6da4;">
     <div class="container">
         <div class="navbar-header">
@@ -34,8 +56,61 @@
     </div>
 </nav>
 <div id="corpo" align="center">
-    <div align="center" id="map" style="height: 800px; width: 80%; border: 1px solid">
+    <div id="map" style="width: 80%; border: 1px solid">
+        <h2 align="center">Registrar Incidente de Chuva</h2>
+        <hr/>
+        <div class="container" align="left">
+            PRIMEIRAMENTE PREENCHA SEUS DADOS PESSOAIS:<br/>
+            <div class="col-md-3">
+                <h4>Nome: <input type="text" placeholder="Seu Nome.." class="form-control" ng-model="novoEvento.nome"> </h4>
+            </div>
+            <div class="col-md-3">
+                <h4>E-mail: <input type="text" placeholder="Seu Nome.." class="form-control" ng-model="novoEvento.email"> </h4>
+            </div>
+            <div class="col-md-3">
+                <h4>Estado: <input type="text" placeholder="Seu Nome.." class="form-control" ng-model="novoEvento.estado"> </h4>
+            </div>
+            <div class="col-md-3">
+                <h4>Cidade: <input type="text" placeholder="Seu Nome.." class="form-control" ng-model="novoEvento.cidade"> </h4>
+            </div>
+            <div class="clearfix"></div>
+            <hr/>
+            <br/>
+            AGORA FAÇA O REGISTRO DO INCIDENTE DE CHUVA:
+            <div id="apresentacao">
+                <div class="col-md-3">
+                    <h4>Data do Incidente: <input ng-model="novoEvento.dataChuva" type="text" placeholder="##/##/####" class="form-control" OnKeyPress="return mascaraGenerica(event, this, '##/##/####');" maxlength="10"> </h4>
+                </div>
+                <div class="col-md-9">
+                    <h4>Detalhes: <textarea ng-model="novoEvento.detalhesChuva" placeholder="Explique detalhes de como foi causado e quais as consequencias do incidente. Seja mais claro possível na descrição" class="form-control"></textarea> </h4>
+                </div>
 
+                <div class="clearfix"></div>
+                <hr/>
+                <div id="comofunciona" class="col-md-12">
+                    <small>Você pode buscar pelo nome da rua, da cidade, do bairro ou pelo CEP </small><br/>
+                    <small>Exemplos de busca: Av. Brasil, Rio de Janeiro <b>|</b> Porto Alegre, RS <b>|</b> Vila Mariana, São Paulo <b>|</b> 12227-801</small>
+                </div>
+                <form class="col-md-12">
+                    <div class="input-group">
+                        <input ng-model="novoEvento.localChuva" type="text" class="form-control" id="txtEndereco" name="txtEndereco" aria-describedby="basic-addon2">
+                        <span type="button" class="input-group-addon " id="basic-addon2" id="btnEndereco" name="btnEndereco">Mostrar no Mapa</span>
+                    </div>
+                    <br/>
+                    <div id="mapa"></div>
+                        <h4>Local: {{novoEvento.localChuva}}</h4>
+
+
+                    <div class="clearfix"></div>
+                    <input type="submit" value="Enviar" ng-click="salvarNovoEvento()" name="btnEnviar" />
+
+                    <input type="hidden" id="txtLatitude" name="txtLatitude" />
+                    <input type="hidden" id="txtLongitude" name="txtLongitude" />
+                </form>
+                <br/>
+
+            </div>
+        </div>
     </div>
 </div>
 
@@ -47,9 +122,5 @@
         <a href="https://www.linkedin.com/in/nicolasfontes" target="_blank">LinkedIn</a>
     </h4>
 </footer>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
