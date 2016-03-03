@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html ng-app="choveuaqui">
+<head lang="pt-BR">
+    <meta charset="UTF-8">
+    <title>Registrar Chuva | Choveu Aqui | Registros de Chuvas no Brasil</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/navbar-fixed-top.css" rel="stylesheet">
+    <script src="js/angular.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body ng-controller="eventos">
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #2e6da4;">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html" style="color: white">Choveu Aqui</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a style="color: #f5f5f5">Eventos de Chuvas no Brasil</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="comofunciona.html" style="color: white">COMO FUNCIONA </a></li>
+                <li class="active"><a href="registrarchuva.html" style="background-color: #255625; color:white">REGISTRAR CHUVA </a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <h2 align="center">Como Funciona</h2>
+    <br/>
+    <div class="col-md-3" align="center">
+        <div class="col-md-1"></div>
+        <div class="col-md-10" style="border: 1px solid">
+            <br/>
+            <img src="img/nuvem.png" style="width: 100px;height: 100px">
+            <br/><br/>
+            <h4>Chove muito forte próximo de você...</h4>
+        </div>
+    </div>
+    <div class="col-md-3" align="center">
+        <div class="col-md-1"></div>
+        <div class="col-md-10" style="border: 1px solid">
+            <br/>
+            <img src="img/casa.png" style="width: 100px;height: 100px">
+            <br/><br/>
+            <h4>... Há Desastres Naturais...</h4>
+        </div>
+    </div>
+    <div class="col-md-3" align="center">
+        <div class="col-md-1"></div>
+        <div class="col-md-10" style="border: 1px solid">
+            <br/>
+            <img src="img/registra.png" style="width: 100px;height: 100px">
+            <br/><br/>
+            <h4>... Você conta pra gente...</h4>
+        </div>
+    </div>
+    <div class="col-md-3" align="center">
+        <div class="col-md-1"></div>
+        <div class="col-md-10" style="border: 1px solid">
+            <br/>
+            <img src="img/mapa.png" style="width: 100px;height: 100px">
+            <br/><br/>
+            <h4>... A gente ANUNCIA para todos! :D</h4>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <br/>
+    <h4 align="center" >
+        A ideia do <b>Choveu Aqui</b> é poder anunciar onde está acontecendo desastres naturais por consequência de chuvas no Brasil.<br/>
+        Queremos disponibilizar essas informações para auxiliar pessoas que vão viajar para regiões afetadas pela chuva e também informar aos orgãos governamentais a situação de cada local para que sejam tomadas providências mais breve possível!
+    </h4>
+    <hr/>
+    <h2 align="center">Ainda tem dúvidas? Entre em contato</h2>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form>
+            <div class="col-md-4">
+                <h4>Nome: <input type="text" placeholder="Seu Nome.." class="form-control" ng-model="contato.nome"></h4>
+            </div>
+            <div class="col-md-4">
+                <h4>E-mail: <input type="text" placeholder="Seu Email.." class="form-control" ng-model="contato.email"></h4>
+            </div>
+            <div class="col-md-4">
+                <h4>Telefone: <input type="text" placeholder="(##) #####-####" class="form-control" ng-model="contato.telefone"></h4>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <h4>Mensagem: <textarea placeholder="Sua Mensagem..." class="form-control" ng-model="contato.mensagem"></textarea></h4>
+            </div>
+            <div class="clearfix"></div>
+            <p align="center" style="color: red">{{resposta}}</p>
+            <p align="center" id="botao"><button type="submit" class="btn" style="background-color: #2e6da4; color: white" ng-click="enviarContato()">ENVIAR</button></p>
+            <p align="center" id="msg" style="display: none"><button class="btn" style="background-color: #8a6d3b; color: white">AGUARDE...</button></p>
+        </form>
+    </div>
+    <br/><br/><br/><br/><br/><br/>
+</div>
+<footer class="modal-footer" >
+    <h4 align="center">2016 - Feito por Nicolas Fontes |
+        <a href="http://www.nicolasfontes.com.br" target="_blank">Portfólio</a> |
+        <a href="http://www.facebook.com/NicolasRFontes" target="_blank">Facebook</a> |
+        <a href="https://www.linkedin.com/in/nicolasfontes" target="_blank">LinkedIn</a>
+    </h4>
+</footer>
+</body>
+</html>
